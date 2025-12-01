@@ -6,7 +6,7 @@ This repository provides a Snakemake-based pipeline for analyzing single-cell RN
 - Characterize age- and circadian-associated changes in immune cell communication.
 - Investigate how these changes affect immune cell phenotypes and functions.
 
-## The workflow starts from facility-provided 10x Genomics count matrices (matrix.mtx, barcodes.tsv, features.tsv) and performs:
+## The workflow starts from 10x Genomics count matrices (matrix.mtx, barcodes.tsv, features.tsv) and performs:
 
 - Quality control and filtering of low-quality cells
 - Normalization and identification of highly variable genes
