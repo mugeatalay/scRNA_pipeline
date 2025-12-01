@@ -9,9 +9,10 @@ This repository provides a Snakemake-based pipeline for analyzing single-cell RN
 ## The workflow starts from 10x Genomics count matrices (matrix.mtx, barcodes.tsv, features.tsv) and performs:
 
 - Quality control and filtering of low-quality cells
+- Generation of QC plots and processed datasets for downstream analyses
 - Normalization and identification of highly variable genes
 - Dimensionality reduction and clustering
-- Generation of QC plots and processed datasets for downstream analyses
+- Celltype annotation
 
 ## Objectives
 - Explore intra- and inter-tissue immune cell communication and its decline with age
