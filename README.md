@@ -1,4 +1,4 @@
-#### Single-cell Immunotranscriptomic Analysis of Murine Aging **bold text 
+#### Single-cell Immunotranscriptomic Analysis of Murine Aging
 
 ## Project Overview
 
