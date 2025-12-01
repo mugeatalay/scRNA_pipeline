@@ -23,3 +23,6 @@ This repository provides a Snakemake-based pipeline for analyzing single-cell RN
 - Snakemake
 - Scanpy and supporting Python libraries (envs/scRNA.yaml)
 - Conda is recommended for environment management
+
+## Languages
+- Jupyter Notebook: 100%
