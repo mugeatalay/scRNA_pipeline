@@ -14,9 +14,9 @@ This repository provides a Snakemake-based pipeline for analyzing single-cell RN
 - Generation of QC plots and processed datasets for downstream analyses
 
 ## Objectives
-Explore intra- and inter-tissue immune cell communication and its decline with age
--Identify phenotypic and functional changes in immune cells
--Provide a reproducible workflow for single-cell analysis
+- Explore intra- and inter-tissue immune cell communication and its decline with age
+- Identify phenotypic and functional changes in immune cells
+- Provide a reproducible workflow for single-cell analysis
 
 ## Installation & Dependencies
 - Python: ≥3.11
