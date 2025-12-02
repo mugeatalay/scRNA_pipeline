@@ -41,6 +41,7 @@ adata.obs['sample'] = label
 # Assign real batch numbers
 adata.obs['real_batch'] = batch_numbers  # This will be used for Harmony
 
+```python
 # Create replicate labels
 replicate_labels = (
     ['replicate1'] * len(adata1) +
@@ -54,4 +55,5 @@ replicate_labels = (
 )
 
 # Add the 'replicate' column
-adata.obs['replicate'] = replicate_labels  
+adata.obs['replicate'] = replicate_labels
+``` 
