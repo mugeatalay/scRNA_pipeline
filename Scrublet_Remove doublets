@@ -1,5 +1,6 @@
 
-##Import 
+## Import
+```python
 import scrublet as scr
 
 def detect_doublets(adata):
@@ -7,12 +8,12 @@ def detect_doublets(adata):
     doublet_scores, predicted_doublets = scrub.scrub_doublets(n_prin_comps=30)
     adata.obs['doublet_score'] = doublet_scores
     adata.obs['predicted_doublets'] = predicted_doublets
-
-filter out doublets 
-    adata = adata[~adata.obs['predicted_doublets'], :]  
+    
+    # Filter out doublets
+    adata = adata[~adata.obs['predicted_doublets'], :]
     return adata
 
-# Run Scrublet on both datasets
+# Run Scrublet on multiple datasets
 adata1 = detect_doublets(adata1)
 adata2 = detect_doublets(adata2)
 adata3 = detect_doublets(adata3)
@@ -21,14 +22,25 @@ adata5 = detect_doublets(adata5)
 adata6 = detect_doublets(adata6)
 adata7 = detect_doublets(adata7)
 adata8 = detect_doublets(adata8)
+```
 
+## Plot Scrublet doublet scores
+```python
+import matplotlib.pyplot as plt
 
-Plot doublets
+def plot_doublets(adata, title="Doublet Score Distribution"):
+    plt.figure(figsize=(6,4))
+    plt.hist(adata.obs['doublet_score'], bins=50)
+    plt.xlabel("Doublet Score")
+    plt.ylabel("Number of Cells")
+    plt.title(title)
+    plt.show()
 
-
-
-
-
+# Example: plot for each dataset
+plot_doublets(adata1, "Dataset 1 Doublet Scores")
+plot_doublets(adata2, "Dataset 2 Doublet Scores")
+```
+scrub.plot_histogram()
 
 
 
