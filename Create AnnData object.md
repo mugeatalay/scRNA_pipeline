@@ -14,7 +14,6 @@ import scrublet as scr
 import session_info
 
 ## 1.1.1 Load Data
-## 1.1.2 Read Data
 
 sc.settings.verbosity = 3
 sc.settings.set_figure_params(dpi = 160, color_map = 'RdPu', dpi_save = 180, vector_friendly = True, format = 'svg')
@@ -53,3 +52,8 @@ features_file = '/data/scc/LIPIMMUNE_05/A-PCB-24014554_L_GEX_folder/features.tsv
 adata1 = charge_adata(matrix_file, barcodes_file, features_file)
 
 Repeat this as number of samples you wish to analyze
+
+## 1.1.2 Read Data
+
+adata
+
