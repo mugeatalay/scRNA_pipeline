@@ -60,14 +60,14 @@ def preprocess_data(adata):
     return adata
 
 # Preprocess individual datasets
-adata1 = preprocess_data(adata1) #control 1
-adata2 = preprocess_data(adata2) #control 2
-adata3 = preprocess_data(adata3) #control 3
-adata4 = preprocess_data(adata4) #control 4
-adata5 = preprocess_data(adata5) #treated 1
-adata6 = preprocess_data(adata6) #treated 2
-adata7 = preprocess_data(adata7) #treated 3
-adata8 = preprocess_data(adata8) #treated 4
+    adata1 = preprocess_data(adata1) #control ZT0
+    adata2 = preprocess_data(adata2) #control ZT0
+    adata3 = preprocess_data(adata3) #control ZT12
+    adata4 = preprocess_data(adata4) #control ZT12
+    adata5 = preprocess_data(adata5) #treated ZT0
+    adata6 = preprocess_data(adata6) #treated ZT0
+    adata7 = preprocess_data(adata7) #treated ZT12
+    adata8 = preprocess_data(adata8) #treated ZT12
 
 
 ## Check if any cell or gene contains infinite or NaN values
