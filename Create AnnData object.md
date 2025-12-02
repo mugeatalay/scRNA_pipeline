@@ -1,7 +1,5 @@
 # Import Modules 
 ## 1.1 Install Libraries
-## 1.1.1 Load Data
-## 1.1.2 Read Data
 
 import numpy as np
 import pandas as pd
@@ -14,6 +12,9 @@ import scipy.sparse as sparse
 import scipy.io
 import scrublet as scr
 import session_info
+
+## 1.1.1 Load Data
+## 1.1.2 Read Data
 
 sc.settings.verbosity = 3
 sc.settings.set_figure_params(dpi = 160, color_map = 'RdPu', dpi_save = 180, vector_friendly = True, format = 'svg')
