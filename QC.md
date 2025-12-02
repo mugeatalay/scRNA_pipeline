@@ -70,7 +70,8 @@ def preprocess_data(adata):
     adata8 = preprocess_data(adata8) #treated ZT12
 
 
-## Check if any cell or gene contains infinite or NaN values
+```python
+# Check if any cell or gene contains infinite or NaN values
 if np.any(np.isnan(adata1.X.toarray())) or np.any(np.isinf(adata1.X.toarray())):
     print("There are NaN or infinite values in the data. Please clean the data before proceeding.")
 else:
