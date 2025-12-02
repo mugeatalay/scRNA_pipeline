@@ -1,5 +1,6 @@
 ## **Create condition labels**
 
+```python
 list1 = ['Young 1'] * len(adata1)  # batch no 3
 list2 = ['Young 2'] * len(adata2)  # batch no 1
 list3 = ['Young 3'] * len(adata3)  # batch no 3
@@ -8,10 +9,12 @@ list5 = ['Aged 1'] * len(adata5)   # batch no 1
 list6 = ['Aged 2'] * len(adata6)   # batch no 2
 list7 = ['Aged 3'] * len(adata7)   # batch no 2
 list8 = ['Aged 4'] * len(adata8)   # batch no 1
+```
 
 # Concatenate condition labels
 label = np.concatenate([list1, list2, list3, list4, list5, list6, list7, list8])
 
+```python
 # Define the real batch numbers corresponding to each dataset
 batch_numbers = (
     [3] * len(adata1) +  # A-PCB-24014554 
@@ -23,6 +26,7 @@ batch_numbers = (
     [2] * len(adata7) +  # 220049298
     [1] * len(adata8)    # 220049297
 )
+```
 
 # Concatenate AnnData objects with a neutral batch key (not "batch")
 adata = adata1.concatenate(
