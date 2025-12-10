@@ -1,0 +1,42 @@
+# =======================================
+# IMPORTS & DEPENDENCIES
+# =======================================
+
+# Install dependencies
+# !pip install tensorflow keras tensorflow-probability
+# !pip install tensorflow keras tensorflow-probability[tf]
+
+# Standard libraries
+import warnings
+import pickle as pkl
+
+# Data handling
+import numpy as np
+import pandas as pd
+import scipy.sparse as sp
+import scipy.io
+
+# Machine learning / dimensionality reduction
+from sklearn.decomposition import PCA
+
+# Single-cell & bioinformatics tools
+import scanpy as sc
+import anndata as ad  # Ensure Anndata is imported
+
+# sccoda library and utilities
+import sccoda
+from sccoda.util import comp_ana as mod
+from sccoda.util import data_visualization as viz
+from sccoda.util import cell_composition_data as dat
+import sccoda.datasets as scd
+
+# =======================================
+# SETTINGS
+# =======================================
+
+# Suppress warnings for clean output
+warnings.filterwarnings("ignore")
+
+# Check versions
+print("sccoda version:", sccoda.__version__)
+print("Available visualization functions:", dir(viz))
