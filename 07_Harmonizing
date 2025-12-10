@@ -1,12 +1,17 @@
-# ================================================
-# **INSTALL DEPENDENCIES**
-# ================================================
-# !pip install harmony-pytorch
-# !pip install scib
+# 05_Harmonize: Batch Correction with Harmony
 
-# ================================================
-# **IMPORT LIBRARIES**
-# ================================================
+This step performs batch correction on the merged dataset using Harmony. 
+We use PCA embeddings as input and generate Harmony-corrected embeddings for downstream analyses.
+
+---
+
+## **1. Install dependencies 
+
+!pip install harmony-pytorch
+!pip install scib
+
+## **2. Import packages
+
 import scib
 import scib.metrics as sm
 from harmony import harmonize
@@ -15,62 +20,62 @@ import scanpy as sc
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# ================================================
-# **LOAD DATA**
-# ================================================
-adata = sc.read("Anndata0.h5ad")
+## **3. Load merged data
 
-# ================================================
-# **RENAME COLUMNS FOR CLARITY**
-# ================================================
 adata.obs.rename(columns={'dataset_id': 'dataset_origin'}, inplace=True)
 
-# Quick check
+# Quick sanity check
 print("Sample of obs dataframe:")
 print(adata.obs[['sample', 'replicate', 'real_batch']].head())
 
-# ================================================
-# **PCA BEFORE BATCH CORRECTION**
-# ================================================
-pca = PCA(n_components=50)
-adata.obsm['X_pca'] = pca.fit_transform(adata.X)  # Using processed data
+adata.obs.rename(columns={'dataset_id': 'dataset_origin'}, inplace=True)
 
-# Scatter plot before batch correction
+## PCA before batch correction
+We compute PCA on the processed data (adata.X) to generate embeddings for Harmony.
+
+pca = PCA(n_components=50)
+adata.obsm['X_pca'] = pca.fit_transform(adata.X)
+
+Optional: visualize PCA before batch correction
+
 plt.figure(figsize=(8, 6))
 sns.scatterplot(
-    x=adata.obsm['X_pca'][:, 0], 
-    y=adata.obsm['X_pca'][:, 1], 
-    hue=adata.obs['real_batch'], 
-    style=adata.obs['real_batch'],  # Optional: different shapes for batches
+    x=adata.obsm['X_pca'][:, 0],
+    y=adata.obsm['X_pca'][:, 1],
+    hue=adata.obs['real_batch'],
+    style=adata.obs['real_batch'],
     alpha=0.6
 )
 plt.title("PCA Before Batch Correction")
 plt.xlabel("PC1")
 plt.ylabel("PC2")
 plt.legend(title="Batch", bbox_to_anchor=(1.05, 1), loc='upper left')
-plt.show()  # Use show() for GitHub notebooks
+plt.show()
 
-# ================================================
-# **RUN HARMONY FOR BATCH CORRECTION**
-# ================================================
+## Run Harmony for batch correction
+
 adata.obsm['X_harmony'] = harmonize(
-    adata.obsm['X_pca'], 
-    adata.obs, 
+    adata.obsm['X_pca'],
+    adata.obs,
     batch_key='real_batch'
 )
 
-# Scatter plot after batch correction
+Visualize Harmony-corrected embeddings
+
 plt.figure(figsize=(8, 6))
 sns.scatterplot(
-    x=adata.obsm['X_harmony'][:, 0], 
-    y=adata.obsm['X_harmony'][:, 1], 
-    hue=adata.obs['real_batch'], 
-    style=adata.obs['real_batch'],  # Optional: different shapes for batches
+    x=adata.obsm['X_harmony'][:, 0],
+    y=adata.obsm['X_harmony'][:, 1],
+    hue=adata.obs['real_batch'],
+    style=adata.obs['real_batch'],
     alpha=0.6
 )
-plt.title("PCA After Batch Correction")
+plt.title("PCA After Batch Correction (Harmony)")
 plt.xlabel("PC1")
 plt.ylabel("PC2")
 plt.legend(title="Batch", bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.show()
+
+
+
 
