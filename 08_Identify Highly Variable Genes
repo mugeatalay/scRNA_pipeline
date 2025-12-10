@@ -1,0 +1,111 @@
+IMPORT
+
+adata = sc.read("Anndata1.h5ad")
+
+# Identify highly variable genes
+sc.pp.highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5, n_top_genes=1000)
+
+# Check if 'highly_variable' exists in adata.var
+if 'highly_variable' in adata.var.columns:
+    print("Highly variable genes identified successfully.")
+else:
+    print("No highly variable genes found.")
+
+
+# Perform PCA on highly variable genes
+sc.tl.pca(adata, n_comps=50, svd_solver='arpack')
+
+# Scree Plot (Variance explained by each PCA component)
+variance_explained = adata.uns['pca']['variance_ratio']
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, len(variance_explained) + 1), variance_explained, marker='o', linestyle='--')
+plt.title('Scree Plot')
+plt.xlabel('Principal Component')
+plt.ylabel('Variance Explained')
+plt.xticks(range(1, len(variance_explained) + 1))
+plt.grid()
+plt.show()
+
+# Plot the cumulative variance explained
+cumulative_variance = np.cumsum(variance_explained)
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, len(cumulative_variance) + 1), cumulative_variance, marker='o', linestyle='--')
+plt.title('Cumulative Variance Explained')
+plt.xlabel('Principal Component')
+plt.ylabel('Cumulative Variance Explained')
+plt.grid()
+plt.show()
+
+# Compute highly variable genes
+sc.pp.highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
+print("Highly variable genes: %d" % sum(adata.var.highly_variable))
+
+# Plot and save the highly variable genes
+sc.pl.highly_variable_genes(adata)
+
+## Highly variable genes: 1390 
+
+## Compute neighbors post harmony
+sc.pp.neighbors(adata, use_rep='X_harmony')
+
+## Run umaps for batch, sample, replicate
+sc.tl.umap(adata)
+sc.pl.umap(adata, color=['real_batch', 'sample','replicate'])
+
+# Define the resolution to keep and the custom clustering name
+resolutions = [0.4]
+col_names = [f"leiden_{res}" for res in resolutions]
+
+selected_resolution = 0.4
+custom_clustering_name = "vol0"
+
+# Step 1: Run Leiden clustering at the selected resolution 0.4 and store it in a custom name
+sc.tl.leiden(adata, resolution=selected_resolution, key_added=custom_clustering_name)
+
+# Step 2: Remove the other Leiden clustering results from `adata.obs`
+for res in resolutions:
+    if f"leiden_{res}" in adata.obs:
+        del adata.obs[f"leiden_{res}"]
+
+# Verify that only the desired clustering exists
+print(adata.obs.columns)  # This should now show only "vol_1_clustering" (vol_1_clustering)
+
+# Plot UMAP without showing immediately
+sc.pl.umap(adata, color=custom_clustering_name, legend_loc="on data", show=False)
+
+# Get current axes
+ax = plt.gca()
+
+# Remove axis labels and ticks
+ax.set_xlabel('')
+ax.set_ylabel('')
+ax.set_xticks([])
+ax.set_yticks([])
+
+# Remove the frame (spines)
+for spine in ax.spines.values():
+    spine.set_visible(False)
+
+# Save the figure
+plt.savefig("umap_vol0.pdf", dpi=500, bbox_inches='tight')
+
+# Show the cleaned plot
+plt.show()
+
+# Save UMAP before batch correction
+sc.pl.umap(adata, color="real_batch", title="UMAP Before Batch Correction", save="_before_harmony.pdf")
+sc.pl.umap(adata, color=custom_clustering_name, title="Clusters Before Harmony", save="V0_before.pdf")
+
+# Save UMAP after batch correction
+sc.pl.umap(adata, color="real_batch", title="UMAP After Batch Correction", save="_after_harmony.pdf")
+sc.pl.umap(adata, color=custom_clustering_name, title="Clusters After Harmony", save="_clusters_after.pdf")
+
+sc.pl.violin(adata, keys=["n_genes_by_counts", "total_counts", "total_counts_mt", "doublet_score"], groupby="vol0", save="V0_Violin")
+
+## Check metadata if all the columns exist
+adata.obs 
+
+## Save Anndata
+adata.write('Anndata2.h5ad')
+
+
