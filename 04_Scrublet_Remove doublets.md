@@ -24,6 +24,8 @@ adata7 = detect_doublets(adata7)
 adata8 = detect_doublets(adata8)
 ```
 
+<img width="432" height="187" alt="DoubletScore_im" src="https://github.com/user-attachments/assets/4879d8ef-5dd5-450e-83ad-c4ff453f7bc0" />
+
 ## Plot Scrublet doublet scores
 ```python
 import matplotlib.pyplot as plt
@@ -36,13 +38,14 @@ def plot_doublets(adata, title="Doublet Score Distribution"):
     plt.title(title)
     plt.show()
 
+
 # Example: plot for each dataset
 plot_doublets(adata1, "Dataset 1 Doublet Scores")
 plot_doublets(adata2, "Dataset 2 Doublet Scores")
 ```
 scrub.plot_histogram()
 
-
+Hist*
 
 
 
